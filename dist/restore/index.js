@@ -99481,7 +99481,13 @@ class Package {
         }
         const tmp = external_fs_default().mkdtempSync(external_path_default().join(external_os_default().tmpdir(), "ccache"));
         const dlName = external_path_default().join(tmp, this.artifact);
-        await execArgs("curl", ["-L", url, "-o", dlName]);
+        await execArgs("curl", [
+            "-fL",
+            "--retry", "3",
+            "--retry-delay", "2",
+            "--retry-all-errors",
+            url, "-o", dlName,
+        ]);
         // TEMP DEBUG — remove before merge: surface what curl actually wrote.
         try {
             const sz = external_fs_default().statSync(dlName).size;
