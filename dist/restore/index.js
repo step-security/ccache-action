@@ -99482,6 +99482,23 @@ class Package {
         const tmp = external_fs_default().mkdtempSync(external_path_default().join(external_os_default().tmpdir(), "ccache"));
         const dlName = external_path_default().join(tmp, this.artifact);
         await execArgs("curl", ["-L", url, "-o", dlName]);
+        // TEMP DEBUG — remove before merge: surface what curl actually wrote.
+        try {
+            const sz = external_fs_default().statSync(dlName).size;
+            info(`[debug] curl wrote ${sz} bytes from ${url}`);
+            if (sz < 4096) {
+                const buf = external_fs_default().readFileSync(dlName);
+                info(`[debug] full content (utf-8): ${buf.toString("utf-8")}`);
+                info(`[debug] full content (hex): ${buf.toString("hex")}`);
+            }
+            else {
+                const head = external_fs_default().readFileSync(dlName, { encoding: null }).slice(0, 256);
+                info(`[debug] first 256 bytes (hex): ${head.toString("hex")}`);
+            }
+        }
+        catch (e) {
+            info(`[debug] could not inspect downloaded file: ${e}`);
+        }
         if (url.endsWith(".zip")) {
             await execArgs("unzip", [dlName, "-d", tmp]);
             external_fs_default().copyFileSync(external_path_default().join(tmp, srcFile), dstFile);

@@ -78,6 +78,22 @@ export class Package {
     const dlName = path.join(tmp, this.artifact)
     await execArgs("curl", ["-L", url, "-o", dlName])
 
+    // TEMP DEBUG — remove before merge: surface what curl actually wrote.
+    try {
+      const sz = fs.statSync(dlName).size;
+      core.info(`[debug] curl wrote ${sz} bytes from ${url}`);
+      if (sz < 4096) {
+        const buf = fs.readFileSync(dlName);
+        core.info(`[debug] full content (utf-8): ${buf.toString("utf-8")}`);
+        core.info(`[debug] full content (hex): ${buf.toString("hex")}`);
+      } else {
+        const head = fs.readFileSync(dlName, { encoding: null }).slice(0, 256);
+        core.info(`[debug] first 256 bytes (hex): ${head.toString("hex")}`);
+      }
+    } catch (e) {
+      core.info(`[debug] could not inspect downloaded file: ${e}`);
+    }
+
     if (url.endsWith(".zip")) {
       await execArgs("unzip", [dlName, "-d", tmp])
       fs.copyFileSync(path.join(tmp, srcFile), dstFile)
