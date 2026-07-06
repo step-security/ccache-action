@@ -1,0 +1,18 @@
+{
+   "schema_version": "1",
+   "onboarding_type": "copied",
+   "archived": false,
+   "maintained_action_name": "step-security/ccache-action",
+   "upstream_full_repo_name": "hendrikmuhs/ccache-action",
+   "action_type": "node",
+   "last_release": {
+     "tag_name": "v1.2.23",
+     "created_at": "2026-06-09T10:56:34Z",
+     "published_at": "2026-06-09T22:57:38Z"
+   },
+   "sync": {
+     "ignore_presets": [
+       "defaults_v1"
+     ]
+   }
+ }
