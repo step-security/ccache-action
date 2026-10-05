@@ -1,6 +1,6 @@
 {
   "name": "ccache-action",
-  "version": "1.2.23",
+  "version": "1.2.24",
   "description": "github action to speedup building using ccache",
   "main": "dist/restore/index.js",
   "scripts": {
@@ -23,16 +23,16 @@
   "author": "step-security",
   "license": "MIT",
   "dependencies": {
-    "@actions/cache": "^6.0.0",
+    "@actions/cache": "^6.2.0",
     "@actions/core": "^3.0.0",
     "@actions/exec": "^3.0.0",
     "@actions/io": "^3.0.2",
-    "axios": "1.16.0"
+    "axios": "^1.16.0"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.1",
-    "@vercel/ncc": "^0.38.4",
+    "@types/node": "^26.2.0",
+    "@vercel/ncc": "^0.44.1",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.4",
     "typescript": "^5.9.3"
